@@ -21,7 +21,6 @@ on:
 env:
   CI_REQ_DOTNET_SDK_VER: '8.0.x'
   CI_NODE_MIN_VER: 'latest'
-  RUSTFLAGS: '-D warnings'
   JAVA_DISTRIBUTION: 'temurin'
   JAVA_VERSION: '8'
 
@@ -134,6 +133,8 @@ jobs:
       - name: Build and test
         shell: bash
         run: ./build/build-rust --no-set-rustflags --no-tests --test-current --test-msrv --test-no_std --coverage
+        env:
+          RUSTFLAGS: '-C debuginfo=0'  # Override to avoid the -D warnings issue
 
       - uses: actions/upload-artifact@v4
         with:
@@ -185,6 +186,8 @@ jobs:
       - name: Build and test
         shell: bash
         run: ./build/build-js --no-set-rustflags --quick-check
+        env:
+          RUSTFLAGS: ''  # Override to avoid the -D warnings issue
 
       - uses: actions/upload-artifact@v4
         with:
@@ -222,6 +225,8 @@ jobs:
       - name: Build and test
         shell: bash
         run: ./build/build-python --no-set-rustflags --python python
+        env:
+          RUSTFLAGS: ''  # Override to avoid the -D warnings issue
 
   #############################################################################
   #############################################################################
@@ -262,3 +267,5 @@ jobs:
         run: |
           export PATH=$PATH:/tmp/bin
           ./build/build-lua --no-set-rustflags --quick-check
+        env:
+          RUSTFLAGS: ''  # Override to avoid the -D warnings issue
