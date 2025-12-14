@@ -1,8 +1,8 @@
 # This is triggered when a new release is created (using the GitHub UI)
-name: New Release
+name: New Releases
 on:
   release:
-    types: [released]
+    types: [release]
 
 # Keep this in sync with the other *.yml files
 env:
