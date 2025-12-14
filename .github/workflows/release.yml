@@ -3,6 +3,12 @@ name: New Releases
 on:
   release:
     types: [release]
+  workflow_dispatch:    # Add this
+    inputs:
+      simulate-release:
+        description: 'Simulate a release build without publishing'
+        type: boolean
+        default: false
 
 # Keep this in sync with the other *.yml files
 env:
